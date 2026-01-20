@@ -1,50 +1,63 @@
-# Development
+# 🦀 Dioxus Fullstack Chat
 
-Your new bare-bones project includes minimal organization with a single `main.rs` file and a few assets.
+Fullstack веб-приложение на **Rust**, использующего фреймворк **Dioxus**. Приложение реализует чат в реальном времени с использованием WebSockets, Server-Side Rendering (SSR).
 
-```
-project/
-├─ assets/ # Any assets that are used by the app should be placed here
-├─ src/
-│  ├─ main.rs # main.rs is the entry point to your application and currently contains all components for the app
-├─ Cargo.toml # The Cargo.toml file defines the dependencies and feature flags for your project
-```
+![Status](https://img.shields.io/badge/Status-Development-blue) ![Rust](https://img.shields.io/badge/Language-Rust-orange) ![Dioxus](https://img.shields.io/badge/Framework-Dioxus-green)
 
-### Automatic Tailwind (Dioxus 0.7+)
+## ✨ Возможности
 
-As of Dioxus 0.7, there no longer is a need to manually install tailwind. Simply `dx serve` and you're good to go!
+*   **Real-time Messaging:** Мгновенная отправка и получение сообщений через WebSockets.
+*   **SSR + Hydration:** Серверный рендеринг для быстрой первой отрисовки и SEO, с последующей гидратацией на клиенте.
+*   **Actor Pattern:** Чистая архитектура управления состоянием чата через каналы.
 
-Automatic tailwind is supported by checking for a file called `tailwind.css` in your app's manifest directory (next to Cargo.toml). To customize the file, use the dioxus.toml:
+## 🛠 Технологический стек
 
-```toml
-[application]
-tailwind_input = "my.css"
-tailwind_output = "assets/out.css" # also customize the location of the out file!
-```
+*   **Frontend:** Dioxus (WASM)
+*   **Backend:** Dioxus Fullstack (Axum)
+*   **Styling:** Tailwind CSS
 
-### Tailwind Manual Install
+## 🚀 Запуск в режиме разработки
 
-To use tailwind plugins or manually customize tailwind, you can can install the Tailwind CLI and use it directly.
+### Предварительные требования
+1.  Установленный [Rust & Cargo](https://rustup.rs/).
+2.  Установленный Dioxus CLI:
+    ```bash
+    cargo install dioxus-cli
+    ```
 
-### Tailwind
-1. Install npm: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
-2. Install the Tailwind CSS CLI: https://tailwindcss.com/docs/installation/tailwind-cli
-3. Run the following command in the root of the project to start the Tailwind CSS compiler:
+### Запуск
+1.  Клонируйте репозиторий:
+    ```bash
+    git clone https://github.com/your-username/fullstack-chat-app.git
+    cd fullstack-chat-app
+    ```
+2.  Запустите сервер разработки:
+    ```bash
+    dx serve
+    ```
+    Приложение будет доступно по адресу `http://localhost:8080`.
 
-```bash
-npx @tailwindcss/cli -i ./input.css -o ./assets/tailwind.css --watch
-```
+## 📦 Сборка для продакшена
 
-### Serving Your App
+Для создания оптимизированной релизной версии:
 
-Run the following command in the root of your project to start developing with the default platform:
+1.  Выполните команду сборки:
+    ```bash
+    dx build --release
+    ```
+2.  Скомпилированные файлы появятся в папке `target/dx/fullstack-chat-app/release/web`.
+3.  Запустите бинарный файл сервера:
+    ```bash
+    # Linux / macOS
+    ./fullstack-chat-app
+    
+    # Windows
+    .\fullstack-chat-app.exe
+    ```
+    *Важно: Бинарный файл должен запускаться рядом с папкой `public`, содержащей статику.*
 
-```bash
-dx serve --platform web
-```
-
-To run for a different platform, use the `--platform platform` flag. E.g.
-```bash
-dx serve --platform desktop
-```
-
+## Структура проекта
+*   `src/main.rs` - Точка входа сервера и регистрация API.
+*   `src/components/` - Переиспользуемые UI компоненты.
+*   `src/pages/` - Страницы чата и логика клиента.
+*   `src/models/` - Общие структуры данных.
