@@ -45,9 +45,18 @@ fn use_chat_service() -> ChatState {
                         internal_username = Some(name.clone());
                     }
                     ChatAction::Connect => {
-                        let ws_url = "ws://localhost:8080/api/ws";
+                        let ws_url = {
+                            let location = web_sys::window().unwrap().location();
+                            let protocol = if location.protocol().unwrap() == "https:" {
+                                "wss:"
+                            } else {
+                                "ws:"
+                            };
+                            let host = location.host().unwrap();
+                            format!("{protocol}//{host}/api/ws")
+                        };
 
-                        match WebSocket::open(ws_url) {
+                        match WebSocket::open(&ws_url) {
                             Ok(ws) => {
                                 let (write, mut read) = ws.split();
 
